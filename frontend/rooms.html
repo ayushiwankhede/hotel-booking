@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LuxeStay | Rooms</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                <i class="bi bi-building"></i>
+            </div>
+
+            <div>
+                <h2>LuxeStay</h2>
+                <p>Hotel Management</p>
+            </div>
+
+        </div>
+
+
+        <div class="menu-title">
+            MAIN MENU
+        </div>
+
+
+        <nav class="sidebar-menu">
+
+            <a href="index.html" class="menu-item">
+                <i class="bi bi-grid-1x2-fill"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="rooms.html" class="menu-item active">
+                <i class="bi bi-door-open-fill"></i>
+                <span>Rooms</span>
+            </a>
+
+            <a href="bookings.html" class="menu-item">
+                <i class="bi bi-calendar-check-fill"></i>
+                <span>Bookings</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="system-card">
+
+                <div class="online-dot"></div>
+
+                <div>
+                    <strong>System Online</strong>
+                    <small>All services running</small>
+                </div>
+
+            </div>
+
+            <p class="copyright">
+                © 2026 LuxeStay
+            </p>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+        <!-- HEADER -->
+
+        <header class="topbar">
+
+            <div>
+
+                <p class="eyebrow">
+                    HOTEL MANAGEMENT
+                </p>
+
+                <h1>
+                    Rooms
+                </h1>
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <a href="index.html" class="secondary-button">
+                    <i class="bi bi-arrow-left"></i>
+                    Dashboard
+                </a>
+
+                <button class="primary-button" onclick="openRoomModal()">
+                    <i class="bi bi-plus-lg"></i>
+                    Add Room
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- PAGE INTRO -->
+
+        <section class="page-intro">
+
+            <div>
+
+                <h2>
+                    Room Management
+                </h2>
+
+                <p>
+                    Add, manage and monitor your hotel's rooms and availability.
+                </p>
+
+            </div>
+
+            <div class="room-summary">
+
+                <div>
+                    <strong id="roomCount">0</strong>
+                    <span>Total Rooms</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SEARCH & FILTER -->
+
+        <section class="room-toolbar">
+
+            <div class="search-box">
+
+                <i class="bi bi-search"></i>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search by room number or type..."
+                    oninput="filterRooms()"
+                >
+
+            </div>
+
+
+            <select id="typeFilter" onchange="filterRooms()">
+
+                <option value="all">
+                    All Room Types
+                </option>
+
+                <option value="Standard">
+                    Standard
+                </option>
+
+                <option value="Deluxe">
+                    Deluxe
+                </option>
+
+                <option value="Suite">
+                    Suite
+                </option>
+
+                <option value="Premium">
+                    Premium
+                </option>
+
+            </select>
+
+
+            <button class="refresh-button" onclick="loadRooms()">
+
+                <i class="bi bi-arrow-clockwise"></i>
+
+                Refresh
+
+            </button>
+
+        </section>
+
+
+        <!-- ROOM GRID -->
+
+        <section id="roomsContainer" class="rooms-grid">
+
+            <!-- Rooms loaded by JavaScript -->
+
+        </section>
+
+
+        <!-- EMPTY STATE -->
+
+        <div id="emptyState" class="empty-state hidden">
+
+            <div class="empty-icon">
+                <i class="bi bi-door-open"></i>
+            </div>
+
+            <h3>
+                No rooms found
+            </h3>
+
+            <p>
+                Add your first room to start managing your hotel.
+            </p>
+
+            <button class="primary-button" onclick="openRoomModal()">
+                <i class="bi bi-plus-lg"></i>
+                Add First Room
+            </button>
+
+        </div>
+
+
+    </main>
+
+
+    <!-- ================= ADD / EDIT ROOM MODAL ================= -->
+
+    <div id="roomModal" class="modal-overlay hidden">
+
+        <div class="modal-box">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <p class="eyebrow">
+                        ROOM MANAGEMENT
+                    </p>
+
+                    <h2 id="modalTitle">
+                        Add New Room
+                    </h2>
+
+                </div>
+
+                <button class="close-button" onclick="closeRoomModal()">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+
+            </div>
+
+
+            <form id="roomForm">
+
+                <input type="hidden" id="roomId">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Room Number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="roomNumber"
+                        placeholder="e.g. 101"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            Room Type
+                        </label>
+
+                        <select id="roomType" required>
+
+                            <option value="">
+                                Select type
+                            </option>
+
+                            <option value="Standard">
+                                Standard
+                            </option>
+
+                            <option value="Deluxe">
+                                Deluxe
+                            </option>
+
+                            <option value="Suite">
+                                Suite
+                            </option>
+
+                            <option value="Premium">
+                                Premium
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Capacity
+                        </label>
+
+                        <input
+                            type="number"
+                            id="roomCapacity"
+                            min="1"
+                            max="10"
+                            placeholder="e.g. 2"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Price Per Night (₹)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="roomPrice"
+                        min="1"
+                        placeholder="e.g. 3500"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="cancel-button"
+                        onclick="closeRoomModal()"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        <i class="bi bi-check-lg"></i>
+                        Save Room
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- TOAST -->
+
+    <div id="toast" class="toast-message">
+
+        <i id="toastIcon" class="bi bi-check-circle"></i>
+
+        <span id="toastText">
+            Success
+        </span>
+
+    </div>
+
+
+    <script src="js/rooms.js"></script>
+
+</body>
+
+</html>

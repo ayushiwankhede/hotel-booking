@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LuxeStay | Bookings</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                <i class="bi bi-building"></i>
+            </div>
+
+            <div>
+                <h2>LuxeStay</h2>
+                <p>Hotel Management</p>
+            </div>
+
+        </div>
+
+
+        <div class="menu-title">
+            MAIN MENU
+        </div>
+
+
+        <nav class="sidebar-menu">
+
+            <a href="index.html" class="menu-item">
+                <i class="bi bi-grid-1x2-fill"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="rooms.html" class="menu-item">
+                <i class="bi bi-door-open-fill"></i>
+                <span>Rooms</span>
+            </a>
+
+            <a href="bookings.html" class="menu-item active">
+                <i class="bi bi-calendar-check-fill"></i>
+                <span>Bookings</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="system-card">
+
+                <div class="online-dot"></div>
+
+                <div>
+                    <strong>System Online</strong>
+                    <small>All services running</small>
+                </div>
+
+            </div>
+
+            <p class="copyright">
+                © 2026 LuxeStay
+            </p>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+        <!-- HEADER -->
+
+        <header class="topbar">
+
+            <div>
+
+                <p class="eyebrow">
+                    HOTEL MANAGEMENT
+                </p>
+
+                <h1>
+                    Bookings
+                </h1>
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <a href="index.html" class="secondary-button">
+                    <i class="bi bi-arrow-left"></i>
+                    Dashboard
+                </a>
+
+                <button class="primary-button" onclick="openBookingForm()">
+                    <i class="bi bi-plus-lg"></i>
+                    New Booking
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- BOOKING FORM -->
+
+        <section class="booking-panel">
+
+            <div class="booking-panel-heading">
+
+                <div>
+
+                    <p class="eyebrow">
+                        RESERVATION
+                    </p>
+
+                    <h2>
+                        Find an available room
+                    </h2>
+
+                    <p>
+                        Select your dates to see which rooms are available.
+                    </p>
+
+                </div>
+
+                <div class="booking-heading-icon">
+                    <i class="bi bi-calendar2-check"></i>
+                </div>
+
+            </div>
+
+
+            <div class="date-search-form">
+
+                <div class="booking-field">
+
+                    <label>
+                        Check-in
+                    </label>
+
+                    <div class="input-icon">
+
+                        <i class="bi bi-calendar3"></i>
+
+                        <input
+                            type="date"
+                            id="checkIn"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="booking-field">
+
+                    <label>
+                        Check-out
+                    </label>
+
+                    <div class="input-icon">
+
+                        <i class="bi bi-calendar3"></i>
+
+                        <input
+                            type="date"
+                            id="checkOut"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="booking-field">
+
+                    <label>
+                        Room Type
+                    </label>
+
+                    <select id="availabilityType">
+
+                        <option value="">
+                            All room types
+                        </option>
+
+                        <option value="Standard">
+                            Standard
+                        </option>
+
+                        <option value="Deluxe">
+                            Deluxe
+                        </option>
+
+                        <option value="Premium">
+                            Premium
+                        </option>
+
+                        <option value="Suite">
+                            Suite
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    class="availability-button"
+                    onclick="checkAvailability()"
+                >
+                    <i class="bi bi-search"></i>
+                    Check Availability
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- AVAILABLE ROOMS -->
+
+        <section class="availability-section">
+
+            <div class="section-title-row">
+
+                <div>
+
+                    <p class="eyebrow">
+                        AVAILABLE ROOMS
+                    </p>
+
+                    <h2>
+                        Select a room
+                    </h2>
+
+                </div>
+
+                <span id="availabilityCount" class="result-count">
+                    Select dates to search
+                </span>
+
+            </div>
+
+
+            <div
+                id="availableRooms"
+                class="available-room-grid"
+            >
+
+                <div class="availability-placeholder">
+
+                    <div class="placeholder-icon">
+                        <i class="bi bi-calendar2-week"></i>
+                    </div>
+
+                    <h3>
+                        Check room availability
+                    </h3>
+
+                    <p>
+                        Choose your check-in and check-out dates above.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- BOOKING HISTORY -->
+
+        <section class="booking-history">
+
+            <div class="section-title-row">
+
+                <div>
+
+                    <p class="eyebrow">
+                        RESERVATION HISTORY
+                    </p>
+
+                    <h2>
+                        Recent bookings
+                    </h2>
+
+                </div>
+
+                <button
+                    class="refresh-button"
+                    onclick="loadBookings()"
+                >
+                    <i class="bi bi-arrow-clockwise"></i>
+                    Refresh
+                </button>
+
+            </div>
+
+
+            <div class="booking-table-wrapper">
+
+                <table class="booking-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Guest</th>
+
+                            <th>Room</th>
+
+                            <th>Check-in</th>
+
+                            <th>Check-out</th>
+
+                            <th>Status</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="bookingsTableBody">
+
+                    </tbody>
+
+                </table>
+
+
+                <div
+                    id="bookingEmpty"
+                    class="table-empty"
+                >
+
+                    <i class="bi bi-calendar-x"></i>
+
+                    <p>
+                        No bookings yet.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- ================= BOOKING MODAL ================= -->
+
+    <div
+        id="bookingModal"
+        class="modal-overlay hidden"
+    >
+
+        <div class="modal-box booking-modal">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <p class="eyebrow">
+                        RESERVATION
+                    </p>
+
+                    <h2>
+                        Confirm Booking
+                    </h2>
+
+                </div>
+
+                <button
+                    class="close-button"
+                    onclick="closeBookingForm()"
+                >
+                    <i class="bi bi-x-lg"></i>
+                </button>
+
+            </div>
+
+
+            <div class="selected-room-box">
+
+                <div class="selected-room-icon">
+                    <i class="bi bi-door-open"></i>
+                </div>
+
+                <div>
+
+                    <span>
+                        SELECTED ROOM
+                    </span>
+
+                    <strong id="selectedRoomText">
+                        -
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <form id="bookingForm">
+
+                <input
+                    type="hidden"
+                    id="selectedRoomId"
+                >
+
+
+                <div class="form-group">
+
+                    <label>
+                        Guest Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="guestName"
+                        placeholder="Enter guest full name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="guestEmail"
+                            placeholder="guest@email.com"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Phone
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="guestPhone"
+                            placeholder="10-digit number"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            Check-in
+                        </label>
+
+                        <input
+                            type="date"
+                            id="bookingCheckIn"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Check-out
+                        </label>
+
+                        <input
+                            type="date"
+                            id="bookingCheckOut"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="cancel-button"
+                        onclick="closeBookingForm()"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        <i class="bi bi-check-lg"></i>
+                        Confirm Booking
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- TOAST -->
+
+    <div
+        id="bookingToast"
+        class="toast-message"
+    >
+
+        <i id="bookingToastIcon" class="bi bi-check-circle"></i>
+
+        <span id="bookingToastText">
+            Success
+        </span>
+
+    </div>
+
+
+    <script src="js/bookings.js"></script>
+
+</body>
+
+</html>
